@@ -43,7 +43,7 @@ Act as my Databricks Data Engineering mentor. Use the following learning state a
 """
 
 # Initialize Gemini Client
-client = genai.Client(api_key="AIzaSyB_QAwsWVhqOK3sx19_meXiubI7qZhVV8w")
+client = genai.Client(api_key="AIzaSyB_QAwsWVhqOK3sx19_meXiubI7qZhVV8wx")
 
 print("\nConsulting your AI mentor...")
 response = client.models.generate_content(
@@ -64,3 +64,10 @@ with open(output_file, "w", encoding="utf-8") as f:
     f.write(log_content)
 
 print(f"\nConversation successfully saved to: {output_file}")
+
+
+#=========================================================================================================================================
+
+import subprocess
+print("\nAuto-syncing to GitHub...")
+subprocess.run("python ../sync_github.py", shell=True)
