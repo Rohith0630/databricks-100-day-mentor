@@ -1,0 +1,56 @@
+# Current Learning State — Databricks Data Engineering Journey
+
+## Timeline of Learning Progression
+
+- **December / Late January:** Set motivation and goals for Data Engineer role by March; planned learning journey.
+- **Feb 18:** Optimized CV and resume with focus on Azure Databricks and Medallion architecture.
+- **Feb 19:** Completed first mock interview; focused on architecture and cluster optimization concepts.
+- **Feb 21:** Managed burnout and implemented study rest protocols.
+- **Feb 22 (Today):** Reset sprint timeline; pivoted learning focus to Databricks Community Edition constraints.
+
+## Major Concepts Covered
+
+- Medallion Data Design (Bronze/Silver/Gold layers)
+- Stateless pipeline design
+- Parquet vs. Delta Lake storage mechanics, including ACID transactions, Time Travel, schema evolution
+- Performance engineering: Z-Ordering, partitioning, small file problem, data skipping
+- Spark operations: job orchestration, broadcast joins, sort-merge joins, shuffling
+- Troubleshooting Spark UI, data skew, memory/disk spills, compute vs. code optimization
+
+## Hands-On Tasks Completed
+
+- Architected multi-stage data flow converting raw data to Delta tables
+- Migrated pipelines from shared-memory `%run` to isolated `dbutils.notebook.run`
+- Applied Z-Ordering on Gold layer datasets for query optimization
+- Scripted raw CSV ingestion into DBFS using `dbutils.fs.put`
+
+## Projects Attempted
+
+- Formula 1 Analytics Pipeline: Conceptualized and optimized full Medallion architecture on Azure Databricks
+
+## Repeated Mistakes or Confusions
+
+- Terminology gaps: Difficulty articulating technical terms like idempotency, pipeline statelessness
+- Environment mismatch: Planning Azure-specific tools while working in Databricks Community Edition
+- Timeline drift and postponement patterns
+
+## Weak Areas
+
+- Technical vocabulary and architectural terms
+- Deep understanding of Spark physical execution plans and shuffles
+
+## Strong Areas
+
+- Architectural intuition and system design maturity
+- Infrastructure vs. code cost optimization experience
+- Self-awareness and adaptive course corrections during learning
+
+## Current Skill Level Estimate
+
+Solid Mid-Level Data Engineer / Lead Infrastructure Engineer with strong architecture and troubleshooting skills. Needs further practice with PySpark syntax and technical communication for senior-level roles.
+
+## Topics to Cover Next for Job Readiness
+
+- Handling data skew in PySpark (salting and exploding skewed datasets)
+- Advanced Delta Lake operations (VACUUM, OPTIMIZE, concurrent writes)
+- End-to-end pipeline building on Databricks Community Edition without external cloud dependencies
