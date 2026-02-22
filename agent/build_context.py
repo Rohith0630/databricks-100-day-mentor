@@ -1,7 +1,9 @@
 import os
+from google import genai
+from datetime import datetime
 
 # Paths
-memory_path = "../memory"  # adjust if running from agent folder
+memory_path = "../memory"
 current_state_file = os.path.join(memory_path, "current_state.md")
 progress_logs_path = os.path.join(memory_path, "progress_logs")
 
@@ -17,27 +19,48 @@ if os.path.exists(progress_logs_path):
             with open(os.path.join(progress_logs_path, filename), "r", encoding="utf-8") as f:
                 progress_logs.append(f.read())
 
+# --- NEW: Get today's update from you ---
+print("\n--- Daily Databricks Check-in ---")
+daily_update = input("What did you work on or struggle with today? \n> ")
+
 # Combine into AI prompt
 ai_prompt = f"""
-Act as my Databricks Data Engineering mentor. Use the following learning state and recent progress to guide me:
+Act as my Databricks Data Engineering mentor. Use the following learning state and recent progress to guide me.
 
 # Current State
 {current_state}
 
-# Recent Progress Logs
+# Past Progress Logs
 {chr(10).join(progress_logs)}
 
-# Tasks for AI:
-1. Suggest the next learning steps based on my weak areas.
-2. Recommend practical exercises to solidify concepts.
-3. Identify any missing topics I should cover before becoming job-ready.
+# Today's Update from Me:
+{daily_update}
 
-Provide actionable guidance. No generic advice.
+# Tasks for AI:
+1. Acknowledge my update for today.
+2. Suggest the next learning steps based on my weak areas and today's work.
+3. Provide actionable guidance. No generic advice.
 """
 
-# Save to a file
-output_file = os.path.join(memory_path, "ai_prompt.txt")
-with open(output_file, "w", encoding="utf-8") as f:
-    f.write(ai_prompt)
+# Initialize Gemini Client
+client = genai.Client(api_key="AIzaSyB_QAwsWVhqOK3sx19_meXiubI7qZhVV8w")
 
-print(f"AI context prompt generated: {output_file}")
+print("\nConsulting your AI mentor...")
+response = client.models.generate_content(
+    model='gemini-2.5-flash',
+    contents=ai_prompt
+)
+
+# Ensure the progress_logs directory exists
+os.makedirs(progress_logs_path, exist_ok=True)
+
+# Save BOTH your input and the AI's response so it remembers tomorrow
+date_str = datetime.now().strftime("%Y-%m-%d_%H%M%S")
+output_file = os.path.join(progress_logs_path, f"{date_str}_log.md")
+
+log_content = f"## My Update\n{daily_update}\n\n## Mentor Feedback\n{response.text}"
+
+with open(output_file, "w", encoding="utf-8") as f:
+    f.write(log_content)
+
+print(f"\nConversation successfully saved to: {output_file}")
