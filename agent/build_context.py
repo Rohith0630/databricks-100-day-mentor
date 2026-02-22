@@ -69,5 +69,15 @@ print(f"\nConversation successfully saved to: {output_file}")
 #=========================================================================================================================================
 
 import subprocess
-print("\nAuto-syncing to GitHub...")
-subprocess.run("python ../sync_github.py", shell=True)
+
+print("\n--- Auto-syncing to GitHub ---")
+# This tells Git to look at the parent directory as the root of the repo
+repo_path = ".." 
+
+try:
+    subprocess.run(f'git -C {repo_path} add .', shell=True, check=True)
+    subprocess.run(f'git -C {repo_path} commit -m "Automated sync: {date_str}"', shell=True, check=True)
+    subprocess.run(f'git -C {repo_path} push', shell=True, check=True)
+    print("Cloud backup complete! ✅")
+except subprocess.CalledProcessError:
+    print("No new changes to sync or Git error encountered. ⚠️")
