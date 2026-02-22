@@ -43,7 +43,7 @@ Act as my Databricks Data Engineering mentor. Use the following learning state a
 """
 
 # Initialize Gemini Client
-client = genai.Client(api_key="AIzaSyB_QAwsWVhqOK3sx19_meXiubI7qZhVV8wx")
+client = genai.Client(api_key="AIzaSyCVdKQLV9555Wyq01PKbsnIr0J-nJ7_XnI")
 
 print("\nConsulting your AI mentor...")
 response = client.models.generate_content(
@@ -81,3 +81,12 @@ try:
     print("Cloud backup complete! ✅")
 except subprocess.CalledProcessError:
     print("No new changes to sync or Git error encountered. ⚠️")
+
+import os  # Make sure this is at the top
+from google import genai
+
+# Explicitly grab the key from your environment
+api_key = os.environ.get("GOOGLE_API_KEY")
+
+# Initialize Gemini Client with the explicit key
+client = genai.Client(api_key=api_key)
