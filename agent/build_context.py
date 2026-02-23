@@ -43,7 +43,7 @@ Act as my Databricks Data Engineering mentor. Use the following learning state a
 """
 
 # Initialize Gemini Client
-client = genai.Client(api_key="AIzaSyCVdKQLV9555Wyq01PKbsnIr0J-nJ7_XnI")
+client = genai.Client(api_key="AIzaSyBmJLnxtxoxf2rAeAv5vqa8atxJBZWxl0I")
 
 print("\nConsulting your AI mentor...")
 response = client.models.generate_content(
